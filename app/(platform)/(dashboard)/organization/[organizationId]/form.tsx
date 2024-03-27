@@ -1,44 +1,31 @@
-"use client"
+"use client";
 
-import { createBoard} from "@/actions/create-board"
-import { Button } from "@/components/ui/button"
-import { useAction } from "@/hooks/use-action"
+import { createBoard } from "@/actions/create-board";
+import { FormInput } from "@/components/form/form-input";
+import { FormSubmit } from "@/components/form/form-submit";
+import { useAction } from "@/hooks/use-action";
 
-export  const Form = ()=>{
-    const {execute, fieldErrors} = useAction(createBoard,
-        {onSuccess:(data)=>{
-            console.log(data, 'SUCCESS')
-        },
-        onError:(error)=>{
-            console.log(error)
-        }})
+export const Form = () => {
+  const { execute, fieldErrors } = useAction(createBoard, {
+    onSuccess: (data) => {
+      console.log(data, "SUCCESS");
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
 
+  const onSubmit = (formdata: FormData) => {
+    const title = formdata.get("title") as string;
+    execute({ title });
+  };
 
-    const onSubmit = (formdata:FormData)=>{
-        const title = formdata.get('title') as string;
-        execute({title})
-    }
-
-    return (
-        <form action={onSubmit}>
-            <div className="flex flex-col space-y-2">
-
-            
-        <input 
-        type="text"  
-        name="title"
-        required
-        placeholder="Enter a board title"
-        className="border-black border p-1"
-
-        
-        />
-        {fieldErrors?.title}
-        </div>
-        <Button type="submit">
-            Submit
-
-        </Button>
-        </form>
-    )
-}
+  return (
+    <form action={onSubmit}>
+      <div className="flex flex-col space-y-2">
+        <FormInput label="Board title" id="title" errors={fieldErrors} />
+      </div>
+      <FormSubmit>Save</FormSubmit>
+    </form>
+  );
+};

@@ -21,7 +21,6 @@ const handler = async (data: InputType): Promise<ReturnType> => {
   const { id } = data;
 
   let board;
-  console.log("been here");
   try {
     board = await db.board.delete({
       where: {
