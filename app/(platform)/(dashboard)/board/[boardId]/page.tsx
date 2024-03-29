@@ -1,5 +1,5 @@
 const BoardPage = () => {
-  return <div>Board ID!</div>;
+  return <div className="p-4 h-full overflow-x-auto">Board</div>;
 };
 
 export default BoardPage;
